@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Abstract;
+namespace App\Model;
 
 use App\Model\Category;
 

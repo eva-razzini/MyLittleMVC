@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Model\AbstractProduct;
+
 class Product extends AbstractProduct
 {
     // Supposez que vous ayez une table "products" dans votre base de données
