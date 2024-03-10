@@ -13,19 +13,27 @@
     <p>Email: <?php echo $user->getEmail(); ?></p>
     <!-- Affichez d'autres informations du profil au besoin -->
 
-    <h3>Update Profile</h3>
-    <form action="update_profile.php" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" value="<?php echo $user->getEmail(); ?>" required><br>
+    <h2>Modifier le profil</h2>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" required><br>
+<?php if (isset($updateError)): ?>
+    <p style="color: red;"><?php echo $updateError; ?></p>
+<?php endif; ?>
 
-        <label for="fullname">Full Name:</label>
-        <input type="text" name="fullname" value="<?php echo $user->getFullName(); ?>" required><br>
+<form method="post" action="">
+    <label for="new_email">Nouvel email:</label>
+    <input type="email" id="new_email" name="new_email" required>
+    <br>
 
-        <input type="submit" value="Update Profile">
-    </form>
+    <label for="new_password">Nouveau mot de passe:</label>
+    <input type="password" id="new_password" name="new_password">
+    <br>
+
+    <label for="new_fullname">Nouveau nom complet:</label>
+    <input type="text" id="new_fullname" name="new_fullname">
+    <br>
+
+    <button type="submit">Mettre à jour</button>
+</form>
 
     <a href="logout.php">Logout</a>
 </body>

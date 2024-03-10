@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\User;
+
 class ProfileController
 {
     public function showProfile()
@@ -31,18 +33,29 @@ class ProfileController
         if ($user) {
             // Mettre à jour les informations de l'utilisateur
             $user->setEmail($email);
-            $user->setPassword($password); // Assurez-vous d'ajouter la logique de hachage du mot de passe
-            $user->setFullName($fullname);
+            
+            // Assurez-vous d'ajouter la logique de hachage du mot de passe
+            if (!empty($password)) {
+                $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            }
+
+            $user->setFullname($fullname);
 
             // Mettre à jour en base de données
-            $user->update();
+            $updated = $user->update();
 
-            // Mettre à jour en SESSION
-            $_SESSION['user'] = $user;
+            if ($updated) {
+                // Mettre à jour en SESSION
+                $_SESSION['user'] = $user;
 
-            // Rediriger vers la page de profil
-            header('Location: profile.php');
-            exit();
+                // Rediriger vers la page de profil
+                header('Location: profile.php?success=Profil mis à jour avec succès.');
+                exit();
+            } else {
+                // Une erreur s'est produite lors de la mise à jour en base de données
+                header('Location: profile.php?error=Une erreur est survenue lors de la mise à jour du profil.');
+                exit();
+            }
         } else {
             // Rediriger vers la page de connexion avec un message d'erreur
             header('Location: login.php?error=1');

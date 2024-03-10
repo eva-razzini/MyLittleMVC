@@ -12,7 +12,7 @@ $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
 // Appeler la méthode login
-$result = $authController->login($password, $email);
+$result = $authController->login($email, $password);
 
 // Rediriger en fonction du résultat
 if ($result === true) {
